@@ -73,11 +73,6 @@ public class SinglyLinkedList{
         newNode.setNext(current.getNext());
         current.setNext(newNode);
       }
-    
-    
-    
-
-   
     // Write pseudocode to do entire add method
     // use addToBeginning, addToEnd to stand in
     // for the stuff we already have done
@@ -85,6 +80,44 @@ public class SinglyLinkedList{
     }
   }
   
+  public void addNode(int index, Node newNode) { 
+    if( index > this.size)
+      //error
+      System.out.println("Index " + index + " does not exist.");
+    else {
+      // if list is empty, newNode is head
+      if (this.isEmpty()) {
+        this.head = newNode;
+      }
+      // adds to front of list
+      else if (index == 0) {
+        newNode.setNext(head);
+        this.head = newNode;
+      }
+      else if (index == this.size) {
+        // adds to end of list
+        Node current = this.head;
+        while (current.getNext() != null) {
+          current = current.getNext();
+        }
+        current.setNext(newNode);
+      }
+      else {
+        // adds to middle of list
+        Node current = this.head;
+        for(int i = 0; i < index - 1; i++) {
+          current = current.getNext();
+        }
+        newNode.setNext(current.getNext());
+        current.setNext(newNode);
+      }
+    // Write pseudocode to do entire add method
+    // use addToBeginning, addToEnd to stand in
+    // for the stuff we already have done
+    this.size++;
+    }
+  }
+    
   // Finds a node and returns its reference
   public Node find(int index) {
     // BUG: null pointer exception when index < 0
@@ -133,4 +166,39 @@ public class SinglyLinkedList{
     this.head = null;
   }
   
+  public void mergeSort() {
+    System.out.println("mergeSort");
+    this.print();
+    SinglyLinkedList left = new SinglyLinkedList();
+    SinglyLinkedList right = new SinglyLinkedList();
+    SinglyLinkedList result = new SinglyLinkedList();
+    if (this.size > 1) {
+      int middle = this.size / 2;
+      for (int i = 0; i < middle; i++)  
+        left.addNode(i, this.find(i));
+      for (int i = middle; i < this.size; i++)
+        right.addNode(i, this.find(i));
+      left.mergeSort();
+      right.mergeSort();
+      left.merge(right);
+      this.head = left.getHead();
+    }
+  }
+  
+  public void merge(SinglyLinkedList other) {
+    System.out.println("merge");
+    this.print();
+    other.print();
+    SinglyLinkedList result = new SinglyLinkedList();
+    for (int i = 0; i < this.size; i++) {
+      if (this.getHead().getData() < other.getHead().getData()) {
+        result.add(0,this.getHead().getData());
+        result.add(1,other.getHead().getData());
+      }
+      else {
+        result.add(0,other.getHead().getData());
+        result.add(1,this.getHead().getData());
+      }
+    } 
+  }
 }
