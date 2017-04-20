@@ -1,18 +1,19 @@
 public class Main{
   public static void main(String [ ] args) {
     SinglyLinkedList ll = new SinglyLinkedList();
-    ll.add(0, 13);
-    ll.add(1, 15);
-    ll.add(2, 11);
-    ll.add(3, 12);
-    ll.add(4, 6);
-    ll.add(5, 7);
-    ll.add(6, 3);
-    ll.add(7, 5);
+    ll.append(new Node(13));
+    ll.append(new Node(15));
+    ll.append(new Node(11));
+    ll.append(new Node(12));
+    ll.append(new Node(6));
+    ll.append(new Node(7));
+    ll.append(new Node(3));
+    ll.append(new Node(5));
+    ll.print();
     
-    //ll.mergeSort();
-    /*ll.print();
-    ll.pop().print();
+    ll.mergeSort();
+    ll.print();
+    /*ll.pop().print();
     System.out.println();
     ll.print();
     ll.pop().print();
@@ -38,5 +39,9 @@ public class Main{
     ll.print();
     System.out.println(ll.pop());
     ll.print();*/
+    // test tail
+    /*ll.print();
+    ll.getTail().print();*/
+    
   }
 }

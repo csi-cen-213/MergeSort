@@ -1,6 +1,7 @@
 public class SinglyLinkedList{
   // Properties
   private Node head = null;
+  private Node tail = null;
   private int size = 0;
 
   // Constructor: Using default constructor
@@ -9,6 +10,10 @@ public class SinglyLinkedList{
   
   public Node getHead() {
     return this.head;
+  }
+  
+  public Node getTail() {
+    return this.tail;
   }
   
   public void setHead(Node newNode) {
@@ -50,6 +55,7 @@ public class SinglyLinkedList{
       // if list is empty, newNode is head
       if (this.isEmpty()) {
         this.head = newNode;
+        this.tail = newNode;
       }
       // adds to front of list
       else if (index == 0) {
@@ -63,6 +69,7 @@ public class SinglyLinkedList{
           current = current.getNext();
         }
         current.setNext(newNode);
+        this.tail = newNode;
       }
       else {
         // adds to middle of list
@@ -73,9 +80,6 @@ public class SinglyLinkedList{
         newNode.setNext(current.getNext());
         current.setNext(newNode);
       }
-    // Write pseudocode to do entire add method
-    // use addToBeginning, addToEnd to stand in
-    // for the stuff we already have done
     this.size++;
     }
   }
@@ -88,6 +92,7 @@ public class SinglyLinkedList{
       // if list is empty, newNode is head
       if (this.isEmpty()) {
         this.head = newNode;
+        this.tail = newNode;
       }
       // adds to front of list
       else if (index == 0) {
@@ -101,6 +106,7 @@ public class SinglyLinkedList{
           current = current.getNext();
         }
         current.setNext(newNode);
+        this.tail = newNode;
       }
       else {
         // adds to middle of list
@@ -150,6 +156,9 @@ public class SinglyLinkedList{
     }
     else {
       try {
+        // update tail if end of list
+        if (tmp.getNext().getNext() == null)
+          this.tail = tmp;
         tmp.setNext(tmp.getNext().getNext());
         size--;
       }
@@ -161,6 +170,7 @@ public class SinglyLinkedList{
   
   public void destroy() {
     this.head = null;
+    this.tail = null;
   }
   
   public Node pop() {
@@ -169,42 +179,67 @@ public class SinglyLinkedList{
     Node tmp = this.head;
     this.head = this.head.getNext();
     tmp.setNext(null);
+    this.size--;
     return tmp;
+  }
+  
+  public void append(Node newNode) {
+    if (this.isEmpty()) {
+      this.head = newNode;
+      this.tail = newNode;
+    }
+    else{
+      this.tail.setNext(newNode);
+      this.tail = newNode;
+    }
+    this.size++;
   }
   
   public void mergeSort() {
     System.out.println("mergeSort");
     this.print();
+    System.out.println("Size: " + this.getSize());
     SinglyLinkedList left = new SinglyLinkedList();
     SinglyLinkedList right = new SinglyLinkedList();
     SinglyLinkedList result = new SinglyLinkedList();
     if (this.size > 1) {
       int middle = this.size / 2;
+      System.out.println("middle: " + middle);
       for (int i = 0; i < middle; i++)  
-        left.addNode(i, this.find(i));
-      for (int i = middle; i < this.size; i++)
-        right.addNode(i, this.find(i));
+        left.append(this.pop());
+      right = this;
+      System.out.print(".");
       left.mergeSort();
+      System.out.print(".");
       right.mergeSort();
+      System.out.print(".");
       left.merge(right);
+      left.print();
+      System.out.print(".");
       this.head = left.getHead();
     }
+    System.out.print("end mergeSort: ");
+    this.print();
   }
   
   public void merge(SinglyLinkedList other) {
     System.out.println("merge");
+    System.out.print("this: ");
     this.print();
+    System.out.print("other: ");
     other.print();
     SinglyLinkedList result = new SinglyLinkedList();
-    for (int i = 0; i < this.size; i++) {
-      if (this.getHead().getData() < other.getHead().getData()) {
-        result.add(0,this.getHead().getData());
-        result.add(1,other.getHead().getData());
+    while (!this.isEmpty() || !other.isEmpty()) {
+      if (this.isEmpty()) 
+        while (!other.isEmpty())
+          result.append(other.pop());
+      else if (other.isEmpty()) 
+        while (!this.isEmpty())
+          result.append(this.pop());
+      else if (this.getHead().getData() < other.getHead().getData()) {
+        result.append(this.pop());
       }
-      else {
-        result.add(0,other.getHead().getData());
-        result.add(1,this.getHead().getData());
-      }
-    } 
+    }
+    this.head = result.head;
   }
 }
