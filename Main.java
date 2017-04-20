@@ -10,7 +10,33 @@ public class Main{
     ll.add(6, 3);
     ll.add(7, 5);
     
-    ll.mergeSort();
+    //ll.mergeSort();
+    /*ll.print();
+    ll.pop().print();
+    System.out.println();
     ll.print();
+    ll.pop().print();
+    System.out.println();
+    ll.print();
+    ll.pop().print();
+    System.out.println();
+    ll.print();
+    ll.pop().print();
+    System.out.println();
+    ll.print();
+    ll.pop().print();
+    System.out.println();
+    ll.print();
+    ll.pop().print();
+    System.out.println();
+    ll.print();
+    ll.pop().print();
+    System.out.println();
+    ll.print();
+    ll.pop().print();
+    System.out.println();
+    ll.print();
+    System.out.println(ll.pop());
+    ll.print();*/
   }
 }

@@ -111,9 +111,6 @@ public class SinglyLinkedList{
         newNode.setNext(current.getNext());
         current.setNext(newNode);
       }
-    // Write pseudocode to do entire add method
-    // use addToBeginning, addToEnd to stand in
-    // for the stuff we already have done
     this.size++;
     }
   }
@@ -164,6 +161,15 @@ public class SinglyLinkedList{
   
   public void destroy() {
     this.head = null;
+  }
+  
+  public Node pop() {
+    if (this.isEmpty())
+      return null;
+    Node tmp = this.head;
+    this.head = this.head.getNext();
+    tmp.setNext(null);
+    return tmp;
   }
   
   public void mergeSort() {
